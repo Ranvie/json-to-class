@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Conversor - JSON To Java Class</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="spacer"></div>
+            <section class="header_box">
+                <h1>Conversor JSON to Java Class</h1>
+                <p>
+                    Creates a JAVA class that can be used with GSON (A Google’s lib that 
+                    converts JSON into an object, allowing to manipulate the values inside the JSON, 
+                    but needs a model class representing it first).
+                </p>
+            </section>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="customizations">
+                    <div>
+                        <label for="className" class="remove_left_margin">Create class with name:</label>
+                        <input type="text" id="input_class_name" placeholder="ConvertedJson">
+                    </div>
+                    <div>
+                        <label for="className">Tab spacing:</label>
+                        <input type="text" id="input_tabs" placeholder="2">
+                    </div>
+                </div>
+                <div class="inputs">
+                    <div class="rounded_container">
+                        <div id="drop_area" class="util_area hoverable" onclick="triggerUploadDialog()">
+                            <div id="no_data_input" class="no_data_fill">
+                                <img src="img/file.png">
+                                <p>Click here or Drag and drop the file</p>
+                            </div>
+                            <div id="input" class="display_area">
+                                <!-- Loaded dynamically when user upload a file -->
+                            </div>
+                        </div>
+                        <div class="text_align_center">
+                            <a id="file_popup" onclick="triggerUploadDialog()" onkeypress="enterClick(event, this)" tabindex="1">Upload file</a>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="convert_button" onclick="startConversion()" tabindex="2">Convert</button>
+                    </div>
+                    <div class="rounded_container">
+                        <div class="util_area">
+                            <div id="no_data_output" class="no_data_fill">
+                                <img src="img/convertion.png">
+                                <p>The result will be displayed here</p>
+                            </div>
+                            <div id="output" class="display_area">
+                                <!-- Loaded dynamically when conversion ends -->
+                            </div>
+                        </div>
+                        <div class="text_align_center">
+                            <a id="download_link" onclick="downloadClassFile()" onkeypress="enterClick(event, this)" tabindex="3">Download file as .class</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <input type="file" name="inputFile" id="inputFile" class="invisible">
+        </footer>
+
+        <script src="js/main.js"></script>
+        <script src="js/mapper.js"></script>
+        <script src="js/formatter.js"></script>
+        <script src="js/jsonConversor.js"></script>
+        <script src="js/dragAndDrop.js"></script>
+    </body>
+</html>

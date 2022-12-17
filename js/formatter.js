@@ -20,7 +20,7 @@ function formatAsClass(mappedJson=[], className="ObjectClass", tabs=2)
     if(element.structure == "list")
     {
       classString += createList(element.key, tabs, element.tabLevel, true);
-      classString += createClass(element.key, tabs, element.tabLevel);
+      classString += createClass(element.key+"Lst", tabs, element.tabLevel);
       continue;
     }
 
@@ -33,7 +33,7 @@ function formatAsClass(mappedJson=[], className="ObjectClass", tabs=2)
     if(element.structure == "object")
     {
       classString += createObject(element.key, tabs, element.tabLevel);
-      classString += createClass(element.key, tabs, element.tabLevel);
+      classString += createClass(element.key+"Obj", tabs, element.tabLevel);
       continue;
     }
 
@@ -95,16 +95,16 @@ function createCloseClass(tabs, tabLevel)
 
 function createList(key, tabs=2, tabLevel=0, isAType=false, type="String")
 {
-  return isAType ? `${generateTabSpace(tabs, tabLevel)}public List<${capitalize(key)}> ${key.toLowerCase()};\n` :
-    `${generateTabSpace(tabs, tabLevel)}public List<${type}> ${key.toLowerCase()};\n`;
+  return isAType ? `${generateTabSpace(tabs, tabLevel)}public List<${capitalize(key+"Lst")}> ${key};\n` :
+    `${generateTabSpace(tabs, tabLevel)}public List<${type}> ${key};\n`;
 }
 
 function createObject(key, tabs=2, tabLevel=0)
 {
-  return `${generateTabSpace(tabs, tabLevel)}public ${capitalize(key)} ${key.toLowerCase()};\n`;
+  return `${generateTabSpace(tabs, tabLevel)}public ${capitalize(key+"Obj")} ${key};\n`;
 }
 
 function createAttribute(key, tabs=2, tabLevel=0, type="String")
 {
-  return `${generateTabSpace(tabs, tabLevel)}public ${type} ${key.toLowerCase()};\n`;
+  return `${generateTabSpace(tabs, tabLevel)}public ${type} ${key};\n`;
 }

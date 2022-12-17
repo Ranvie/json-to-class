@@ -90,22 +90,22 @@ function removeSpaces(string="")
 
 function isOpenList(fileLine="")
 {
-  return fileLine.includes("[") && fileLine.split("[").length <= 2;
+  return fileLine.includes("[") && fileLine.charAt(fileLine.length-1) == "[";
 }
 
 function isCloseList(fileLine="")
 {
-  return fileLine.includes("]") && fileLine.split("[").length <= 2;
+  return fileLine.includes("]");
 }
 
 function isOpenObject(fileLine="")
 {
-  return fileLine.includes("{") && fileLine.split("[").length <= 2;
+  return fileLine.includes("{") && fileLine.charAt(fileLine.length-1) == "{";
 }
 
 function isCloseObject(fileLine="")
 {
-  return fileLine.includes("}") && fileLine.split("[").length <= 2;
+  return fileLine.includes("}");
 }
 
 function isValueOnly(fileLine="")

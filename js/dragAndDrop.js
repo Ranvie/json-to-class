@@ -1,4 +1,4 @@
-const dropArea = document.getElementById('drop_area');
+const dropArea = document.getElementById('input_area');
 dropArea.addEventListener('drop', handleDrop, false);
 
 ;['dragenter', 'dragover', 'dragleave', 'drop', 'dropEffect'].forEach(eventName => {
@@ -18,11 +18,11 @@ function preventDefaults (e) {
   dropArea.addEventListener(eventName, unHighLight, false);
 })
 
-function highLight(e) {
+function highLight() {
   dropArea.classList.add('drop_highlight');
 }
 
-function unHighLight(e) {
+function unHighLight() {
   dropArea.classList.remove('drop_highlight');
 }
 
@@ -36,6 +36,6 @@ function handleDrop(e) {
   
   reader.onload = () => {
     fileContent=reader.result.toString();
-    readedFileString(fileContent);
+    readedFileString(fileContent, files[0].size);
   }
 }

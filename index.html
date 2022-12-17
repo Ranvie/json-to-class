@@ -34,7 +34,7 @@
                 </div>
                 <div class="inputs">
                     <div class="rounded_container">
-                        <div id="drop_area" class="util_area hoverable" onclick="triggerUploadDialog()">
+                        <div id="input_area" class="util_area hoverable" onclick="triggerPasteDialog()" onkeypress="handleEnter(event, this)" tabindex="0">
                             <div id="no_data_input" class="no_data_fill">
                                 <img src="img/file.png">
                                 <p>Click here or Drag and drop the file</p>
@@ -44,11 +44,11 @@
                             </div>
                         </div>
                         <div class="text_align_center">
-                            <a id="file_popup" onclick="triggerUploadDialog()" onkeypress="enterClick(event, this)" tabindex="1">Upload file</a>
+                            <a id="file_popup" onclick="triggerUploadDialog()" onkeypress="handleEnter(event, this)" tabindex="0">Upload file</a>
                         </div>
                     </div>
                     <div>
-                        <button class="convert_button" onclick="startConversion()" tabindex="2">Convert</button>
+                        <button class="rose_button" onclick="startConversion()" tabindex="0">Convert</button>
                     </div>
                     <div class="rounded_container">
                         <div class="util_area">
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="text_align_center">
-                            <a id="download_link" onclick="downloadClassFile()" onkeypress="enterClick(event, this)" tabindex="3">Download file as .class</a>
+                            <a id="download_link" onclick="downloadClassFile()" onkeypress="handleEnter(event, this)" tabindex="0">Download file as .class</a>
                         </div>
                     </div>
                 </div>
@@ -70,6 +70,16 @@
 
         <footer>
             <input type="file" name="inputFile" id="inputFile" class="invisible">
+
+            <div id="modal" class="modal invisible">
+                <div id="exit_modal" class="modal_container">
+                    <div class="content">
+                        <button class="close_modal" onclick="closePasteDialog()" tabindex="0">X</button>
+                        <textarea id="input_paste" class="input_paste" placeholder="Paste here the JSON content." tabindex="0"></textarea>
+                        <button class="rose_button" onclick="saveInputOnModal()" tabindex="0">save</button>
+                    </div>
+                </div>
+            </div>
         </footer>
 
         <script src="js/main.js"></script>
@@ -77,5 +87,6 @@
         <script src="js/formatter.js"></script>
         <script src="js/jsonConversor.js"></script>
         <script src="js/dragAndDrop.js"></script>
+        <script src="js/inputModal.js"></script>
     </body>
 </html>

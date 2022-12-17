@@ -24,12 +24,13 @@ function triggerUploadDialog()
   inputFile.click();
 }
 
-function enterClick(event, sender)
+function handleEnter(event, sender)
 {
   if(event.keyCode == 13)
   {
     if(sender.id == "file_popup")    { triggerUploadDialog(); return; }
-    if(sender.id == "download_link") { downloadClassFile(); return }
+    if(sender.id == "download_link") { downloadClassFile(); return; }
+    if(sender.id == "input_area")    { triggerPasteDialog(); return; }
   }
 }
 
@@ -123,11 +124,11 @@ inputFile.addEventListener('change', function() {
 
   reader.onload = () => {
     fileContent=reader.result.toString();
-    readedFileString(fileContent);
+    readedFileString(fileContent, this.files[0].size);
   }
 })
 
-function readedFileString(fileContent)
+function readedFileString(fileContent, fileSizeBytes)
 {
   if(!isJson(fileContent))
   {
@@ -135,10 +136,16 @@ function readedFileString(fileContent)
   }
   else
   {
+    //TODO: Caso o arquivo seja maior de 1MB, esconder até que o usuário queira ver o conteúdo;
     readed=stringToJson(fileContent);
     clearInputContent();
     displayInputContent(readed);
   }
+}
+
+function convertToMb(totalBytes)
+{
+  return totalBytes/1000000;
 }
 
 function convertJsonToClass(jsonContent=[], className="ObjectClass", tabs=2)

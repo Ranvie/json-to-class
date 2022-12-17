@@ -24,7 +24,6 @@ function mapJson(jsonContent=[], className)
       }
 
       key = getKeyName(lineContent);
-
       if(isOpenList(lineContent))
       {
         if(isValueOnly(nextLine) && !isSymbolOnly(nextLine))
@@ -91,22 +90,22 @@ function removeSpaces(string="")
 
 function isOpenList(fileLine="")
 {
-  return fileLine.includes("[");
+  return fileLine.includes("[") && fileLine.split("[").length <= 2;
 }
 
 function isCloseList(fileLine="")
 {
-  return fileLine.includes("]");
+  return fileLine.includes("]") && fileLine.split("[").length <= 2;
 }
 
 function isOpenObject(fileLine="")
 {
-  return fileLine.includes("{");
+  return fileLine.includes("{") && fileLine.split("[").length <= 2;
 }
 
 function isCloseObject(fileLine="")
 {
-  return fileLine.includes("}");
+  return fileLine.includes("}") && fileLine.split("[").length <= 2;
 }
 
 function isValueOnly(fileLine="")

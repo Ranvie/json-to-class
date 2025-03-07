@@ -1,92 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Conversor - JSON To Java Class</title>
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
-        <header>
-            <div class="spacer"></div>
-            <section class="header_box">
-                <h1>Conversor JSON to Java Class</h1>
-                <p>
-                    Creates a JAVA class that can be used with GSON (A Google’s lib that 
-                    converts JSON into an object, allowing to manipulate the values inside the JSON, 
-                    but needs a model class representing it first).
-                </p>
-            </section>
-        </header>
 
-        <main>
-            <div class="container">
-                <div class="customizations">
-                    <div>
-                        <label for="className" class="remove_left_margin">Create class with name:</label>
-                        <input type="text" id="input_class_name" placeholder="ConvertedJson">
-                    </div>
-                    <div>
-                        <label for="className">Tab spacing:</label>
-                        <input type="text" id="input_tabs" placeholder="2">
-                    </div>
-                </div>
-                <div class="inputs">
-                    <div class="rounded_container">
-                        <div id="input_area" class="util_area hoverable" onclick="triggerPasteDialog()" onkeypress="handleEnter(event, this)" tabindex="0">
-                            <div id="no_data_input" class="no_data_fill">
-                                <img src="img/file.png">
-                                <p>Click here or Drag and drop the file</p>
-                            </div>
-                            <div id="input" class="display_area">
-                                <!-- Loaded dynamically when user upload a file -->
-                            </div>
-                        </div>
-                        <div class="text_align_center">
-                            <a id="file_popup" onclick="triggerUploadDialog()" onkeypress="handleEnter(event, this)" tabindex="0">Upload file</a>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="rose_button" onclick="startConversion()" tabindex="0">Convert</button>
-                    </div>
-                    <div class="rounded_container">
-                        <div class="util_area">
-                            <div id="no_data_output" class="no_data_fill">
-                                <img src="img/convertion.png">
-                                <p>The result will be displayed here</p>
-                            </div>
-                            <div id="output" class="display_area">
-                                <!-- Loaded dynamically when conversion ends -->
-                            </div>
-                        </div>
-                        <div class="text_align_center">
-                            <a id="download_link" onclick="downloadClassFile()" onkeypress="handleEnter(event, this)" tabindex="0">Download file as .class</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Conversor - JSON To Java Class</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
 
-        <footer>
-            <input type="file" name="inputFile" id="inputFile" class="invisible">
+<body>
+	<header>
+		<div class="spacer"></div>
+		<section class="header_box">
+			<h1>JSON To Class</h1>
+			<p>
+				Create a DTO class from a given json, the output can be either PHP or JAVA, is up to you :).
+			</p>
+		</section>
+	</header>
 
-            <div id="modal" class="modal invisible">
-                <div id="exit_modal" class="modal_container">
-                    <div class="content">
-                        <button class="close_modal" onclick="closePasteDialog()" tabindex="0">X</button>
-                        <textarea id="input_paste" class="input_paste" placeholder="Paste here the JSON content." tabindex="0"></textarea>
-                        <button class="rose_button" onclick="saveInputOnModal()" tabindex="0">save</button>
-                    </div>
-                </div>
-            </div>
-        </footer>
+	<main>
+		<div class="container">
+			<div class="customizations">
+				<div>
+					<label for="input_class_name" class="">Main class name:</label>
+					<input type="text" id="input_class_name" placeholder="ConvertedJson">
+				</div>
+				<div>
+					<label for="input_tabs">Tab spacing:</label>
+					<input type="text" id="input_tabs" placeholder="2">
+				</div>
+				<div>
+					<label for="input_language">Language:</label>
+					<select name="" id="input_language" onchange="toggleInvisible()">
+						<option value="java" selected>Java</option>
+						<option value="php">PHP</option>
+					</select>
+				</div>
+			</div>
+			<div class="customizations">
+				<div id="input_option_php_type" class="invisible">
+					<label for="input_class_name" class="">Generate types:</label>
+					<select name="" id="input_allow_type">
+						<option value="disabled" selected>Disabled</option>
+						<option value="object">Only objects, the others are strings</option>
+						<option value="all">[W.I.P] All, auto detects dates, numbers, etc</option>
+					</select>
+				</div>
+			</div>
+			<div class="inputs">
+				<div class="rounded_container">
+					<div id="input_area" class="util_area hoverable" onclick="triggerPasteDialog()"
+						onkeypress="handleEnter(event, this)" tabindex="0">
+						<div id="no_data_input" class="no_data_fill">
+							<img src="img/file.png">
+							<p>Click here or Drag and drop the file</p>
+						</div>
+						<div id="input" class="display_area">
+							<!-- Loaded dynamically when user upload a file -->
+						</div>
+					</div>
+					<div class="text_align_center">
+						<a id="file_popup" onclick="triggerUploadDialog()" onkeypress="handleEnter(event, this)" tabindex="0">Upload
+							file</a>
+					</div>
+				</div>
+				<div>
+					<button class="rose_button" onclick="startConversion()" tabindex="0">Convert</button>
+				</div>
+				<div class="rounded_container">
+					<div class="util_area">
+						<div id="no_data_output" class="no_data_fill">
+							<img src="img/convertion.png">
+							<p>The result will be displayed here</p>
+						</div>
+						<div id="output" class="display_area">
+							<!-- Loaded dynamically when conversion ends -->
+						</div>
+					</div>
+					<div class="text_align_center">
+						<a id="download_link" onclick="downloadClassFile()" onkeypress="handleEnter(event, this)"
+							tabindex="0">Download file as .class</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 
-        <script src="js/main.js"></script>
-        <script src="js/mapper.js"></script>
-        <script src="js/formatter.js"></script>
-        <script src="js/jsonConversor.js"></script>
-        <script src="js/dragAndDrop.js"></script>
-        <script src="js/inputModal.js"></script>
-    </body>
+	<footer>
+		<input type="file" name="inputFile" id="inputFile" class="invisible">
+
+		<div id="modal" class="modal invisible">
+			<div id="exit_modal" class="modal_container">
+				<div class="content">
+					<button class="close_modal" onclick="closePasteDialog()" tabindex="0">X</button>
+					<textarea id="input_paste" class="input_paste" placeholder="Paste here the JSON content."
+						tabindex="0"></textarea>
+					<button class="rose_button" onclick="saveInputOnModal()" tabindex="0">save</button>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="js/main.js"></script>
+	<script src="js/mapper.js"></script>
+	<script src="js/formatter.js"></script>
+	<script src="js/jsonConversor.js"></script>
+	<script src="js/dragAndDrop.js"></script>
+	<script src="js/inputModal.js"></script>
+	<script src="js/format/FormatJava.js"></script>
+	<script src="js/format/FormatPHP.js"></script>
+
+	<script>
+		function toggleInvisible() {
+			const phpInvisibleInput = window.document.getElementById('input_option_php_type');
+			
+			let input = window.document.getElementById('input_language');
+			input = input.selectedOptions[0].value;
+
+			switch (input) {
+				case 'php':
+					phpInvisibleInput.classList.remove('invisible');
+					break;
+
+				default:
+					phpInvisibleInput.classList.add('invisible');
+			}
+		}
+	</script>
+</body>
+
 </html>

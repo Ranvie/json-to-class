@@ -13,6 +13,10 @@ let className="";
 
 const inputTabs = document.getElementById('input_tabs');
 
+const languageInput = window.document.getElementById('input_language');
+
+const phpTypeInput = window.document.getElementById('input_allow_type');
+
 let breakInLines="";
 let tabs = 2;
 let tabLevel = 0;

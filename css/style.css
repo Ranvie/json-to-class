@@ -37,7 +37,7 @@ body{
   left: 0;
   z-index: -1;
 
-  content: "Conversor JSON to Java Class";
+  content: "JSON To Class";
   -webkit-text-stroke: 0.12em #FFFFFF;
 }
 
@@ -96,6 +96,14 @@ body{
   border: 0;
   outline: #82002F solid 2px;
   padding: 5px;
+}
+
+.customizations select{
+  border: none;
+  border-radius: 15px;
+  outline: #82002F solid 2px;
+  padding: 10px;
+  width: 150px;
 }
 
 .inputs{

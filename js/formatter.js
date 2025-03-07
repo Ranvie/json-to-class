@@ -1,46 +1,18 @@
 function formatAsClass(mappedJson=[], className="ObjectClass", tabs=2)
 {
+  const selectedLanguage = languageInput.selectedOptions[0].value;
+  const generationType   = phpTypeInput.selectedOptions[0].value;
   let classString = "";
-  let lastTabLevel=0;
 
-  classString += createClass(className);
+  switch(selectedLanguage) {
+    case 'java':
+      classString = new FormatJava().format(mappedJson, className, tabs);
+      break;
 
-  for(let element of mappedJson)
-  {
-    if(lastTabLevel != element.tabLevel) 
-    {
-      if(lastTabLevel > element.tabLevel) 
-      {  
-        classString += createMultipleCloseClass(tabs, lastTabLevel, element.tabLevel);
-      }
-      
-      lastTabLevel = element.tabLevel;
-    }
-
-    if(element.structure == "list")
-    {
-      classString += createList(element.key, tabs, element.tabLevel, true);
-      classString += createClass(element.key+"Lst", tabs, element.tabLevel);
-      continue;
-    }
-
-    if(element.structure == "stringList")
-    {
-      classString += createList(element.key, tabs, element.tabLevel, false);
-      continue;
-    }
-
-    if(element.structure == "object")
-    {
-      classString += createObject(element.key, tabs, element.tabLevel);
-      classString += createClass(element.key+"Obj", tabs, element.tabLevel);
-      continue;
-    }
-
-    classString += createAttribute(element.key, tabs, element.tabLevel);
+    case 'php':
+      classString = new FormatPHP().format(mappedJson, className, tabs, generationType);
+      break;
   }
-
-  classString += createMultipleCloseClass(tabs, lastTabLevel, 0);
 
   return classString;
 }
@@ -68,43 +40,4 @@ function generateTabSpace(tabs, tabLevel)
   }
   
   return spaces;
-}
-
-function createClass(className, tabs=2, tabLevel=0)
-{
-  return `${generateTabSpace(tabs, tabLevel)}public class ${capitalize(className)} {\n`;
-}
-
-function createMultipleCloseClass(tabs, lastTabLevel, toTabLevelExclusive)
-{
-  let result="";
-
-  while(lastTabLevel > toTabLevelExclusive)
-  {
-    result += createCloseClass(tabs, lastTabLevel-1);
-    lastTabLevel--;
-  }
-
-  return result;
-}
-
-function createCloseClass(tabs, tabLevel)
-{
-  return `${generateTabSpace(tabs, tabLevel)}}\n`;
-}
-
-function createList(key, tabs=2, tabLevel=0, isAType=false, type="String")
-{
-  return isAType ? `${generateTabSpace(tabs, tabLevel)}public List<${capitalize(key+"Lst")}> ${key};\n` :
-    `${generateTabSpace(tabs, tabLevel)}public List<${type}> ${key};\n`;
-}
-
-function createObject(key, tabs=2, tabLevel=0)
-{
-  return `${generateTabSpace(tabs, tabLevel)}public ${capitalize(key+"Obj")} ${key};\n`;
-}
-
-function createAttribute(key, tabs=2, tabLevel=0, type="String")
-{
-  return `${generateTabSpace(tabs, tabLevel)}public ${type} ${key};\n`;
 }

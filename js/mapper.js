@@ -20,7 +20,7 @@ function mapJson(jsonContent=[], className)
       {
         if(isNextLineEndList(nextLine)) { parentName.pop(); }
 
-        continue; 
+        continue;
       }
 
       key = getKeyName(lineContent);
@@ -28,27 +28,27 @@ function mapJson(jsonContent=[], className)
       {
         if(isValueOnly(nextLine) && !isSymbolOnly(nextLine))
         { 
-          mapped.push({"key": key, "structure":"stringList", tabLevel, "parentName": parentName.join("_")}); 
+          mapped.push({"key": key, "structure":"stringList", tabLevel, "parentName": parentName.join("")}); 
         }
         else
         {
-          mapped.push({"key": key, "structure":"list", tabLevel, "parentName": parentName.join("_")}); 
+          mapped.push({"key": key, "structure":"list", tabLevel, "parentName": parentName.join("")}); 
         }
 
-        parentName.push(key);
+        parentName.push(capitalize(key));
         tabLevel += checkTabLevel(lineContent);
         continue;
       }
 
       if(isOpenObject(lineContent))
       { 
-        mapped.push({"key": key, "structure":"object", tabLevel, "parentName": parentName.join("_")});
-        parentName.push(key);
+        mapped.push({"key": key, "structure":"object", tabLevel, "parentName": parentName.join("")});
+        parentName.push(capitalize(key));
         tabLevel += checkTabLevel(lineContent);
         continue;
       }
 
-      mapped.push({"key": key, "structure":"attribute", tabLevel, "parentName": parentName.join("_")});
+      mapped.push({"key": key, "structure":"attribute", tabLevel, "parentName": parentName.join("")});
     }
     else
     {

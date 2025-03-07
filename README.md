@@ -8,7 +8,7 @@ Lastly, the file extension is not important, as long it can be read as a text. <
 
 It is possible to change the output language, you'll notice PHP and Java have some differences but that's because of implementation limitations, but both are working
 
-# Conversor de para Classe JAVA
+# Conversor de JSON para Classe
 
 Para usar basta selecionar/arrastar um arquivo JSON na área especificada. Se o arquivo for um JSON, sua formatação não importa. <br>
 

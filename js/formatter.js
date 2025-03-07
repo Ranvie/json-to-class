@@ -1,7 +1,8 @@
 function formatAsClass(mappedJson=[], className="ObjectClass", tabs=2)
 {
-  const selectedLanguage = languageInput.selectedOptions[0].value;
-  const generationType   = phpTypeInput.selectedOptions[0].value;
+  const selectedLanguage    = languageInput.selectedOptions[0].value;
+  const generationType      = phpTypeInput.selectedOptions[0].value;
+  const generateConstructor = phpGenConstructInput.selectedOptions[0].value == 'false' ? false : true;
   let classString = "";
 
   switch(selectedLanguage) {
@@ -10,7 +11,7 @@ function formatAsClass(mappedJson=[], className="ObjectClass", tabs=2)
       break;
 
     case 'php':
-      classString = new FormatPHP().format(mappedJson, className, tabs, generationType);
+      classString = new FormatPHP().format(mappedJson, className, tabs, generationType, generateConstructor);
       break;
   }
 

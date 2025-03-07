@@ -48,6 +48,13 @@
 						<option value="all">[W.I.P] All, auto detects dates, numbers, etc</option>
 					</select>
 				</div>
+				<div id="input_constructor_php" class="invisible">
+					<label for="input_constructor_php" class="">Generate constructors:</label>
+					<select name="" id="input_gen_construct">
+						<option value="false">Disabled</option>
+						<option value="true" selected>Enabled</option>
+					</select>
+				</div>
 			</div>
 			<div class="inputs">
 				<div class="rounded_container">
@@ -81,7 +88,7 @@
 					</div>
 					<div class="text_align_center">
 						<a id="download_link" onclick="downloadClassFile()" onkeypress="handleEnter(event, this)"
-							tabindex="0">Download file as .class</a>
+							tabindex="0">Download file</a>
 					</div>
 				</div>
 			</div>
@@ -114,18 +121,21 @@
 
 	<script>
 		function toggleInvisible() {
-			const phpInvisibleInput = window.document.getElementById('input_option_php_type');
+			const phpInvisibleOptionInput = window.document.getElementById('input_option_php_type');
+			const phpInvisibleConstructInput = window.document.getElementById('input_constructor_php');
 			
 			let input = window.document.getElementById('input_language');
 			input = input.selectedOptions[0].value;
 
 			switch (input) {
 				case 'php':
-					phpInvisibleInput.classList.remove('invisible');
+					phpInvisibleOptionInput.classList.remove('invisible');
+					phpInvisibleConstructInput.classList.remove('invisible');
 					break;
 
 				default:
-					phpInvisibleInput.classList.add('invisible');
+					phpInvisibleOptionInput.classList.add('invisible');
+					phpInvisibleConstructInput.classList.add('invisible');
 			}
 		}
 	</script>

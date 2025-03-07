@@ -3,8 +3,6 @@ class FormatJava {
     let classString = "";
     classString += this.createClass(className);
     let lastTabLevel=0;
-
-    console.log(mappedJson);
     
     for (let element of mappedJson) {
       if (lastTabLevel != element.tabLevel) {

@@ -16,6 +16,7 @@ const inputTabs = document.getElementById('input_tabs');
 const languageInput = window.document.getElementById('input_language');
 
 const phpTypeInput = window.document.getElementById('input_allow_type');
+const phpGenConstructInput = window.document.getElementById('input_gen_construct');
 
 let breakInLines="";
 let tabs = 2;
@@ -117,7 +118,22 @@ function downloadClassFile()
 
   let blob = new Blob([converted], {type: "text/plain"})
   downloadLink.href = window.URL.createObjectURL(blob);
-  downloadLink.download = `${className}.class`;
+  downloadLink.download = `${className}${getFileExtension()}`;
+}
+
+function getFileExtension() {
+  const selectedLanguage = languageInput.selectedOptions[0].value;
+
+  switch(selectedLanguage) {
+    case 'java':
+      return '.class';
+
+    case 'php':
+      return '.php';
+
+    default:
+      return '.txt';
+  }
 }
 
 inputFile.addEventListener('change', function() {
